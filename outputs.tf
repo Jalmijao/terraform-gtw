@@ -1,6 +1,6 @@
 output "api_id" {
   description = "API Gateway ID"
-  value       = aws_api_gatewayv2_api.my_api.id
+  value       = aws_api_gateway_rest_api.my_api.id
 }
 
 output "stage_name" {

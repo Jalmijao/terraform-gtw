@@ -20,4 +20,4 @@ paths:
         uri: arn:aws:lambda:sa-east-1:724772056724:function:gtw-teste
         passthroughBehavior: when_no_match
         type: aws_proxy
-        HttpMethod: GET
+        httpMethod: POST

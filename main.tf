@@ -4,7 +4,7 @@ provider "aws" {
 
 # Read your OpenAPI spec file
 data "local_file" "openapi_spec" {
-  filename = "${path.module}/api_specification.yaml"
+  filename = "${path.module}/api-specification.yaml"
 }
 
 resource "aws_api_gateway_rest_api" "my_api" {

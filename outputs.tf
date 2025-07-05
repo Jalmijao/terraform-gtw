@@ -5,5 +5,5 @@ output "api_id" {
 
 output "stage_name" {
   description = "Deployment stage name"
-  value       = aws_api_gatewayv2_stage.dev_stage.name
+  value       = aws_api_gateway_stage.dev_stage.name
 }

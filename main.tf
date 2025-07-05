@@ -15,10 +15,16 @@ resource "aws_api_gateway_rest_api" "my_api" {
 }
 
 resource "aws_api_gateway_deployment" "deployment" {
-  depends_on = [aws_api_gateway_rest_api.my_api]
   rest_api_id = aws_api_gateway_rest_api.my_api.id
-}
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  depends_on = [
+    aws_api_gateway_rest_api.my_api
+  ]
+}
 resource "aws_api_gateway_stage" "prod_stage" {
   stage_name    = "prod"
   rest_api_id   = aws_api_gateway_rest_api.my_api.id

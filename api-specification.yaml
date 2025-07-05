@@ -16,8 +16,8 @@ paths:
                 properties:
                   message:
                     type: string
-      x-amazon-apigateway-integration:
-        uri: arn:aws:lambda:sa-east-1:724772056724:function:gtw-teste
-        passthroughBehavior: when_no_match
-        type: aws_proxy
-        httpMethod: POST
+    x-amazon-apigateway-integration:
+      uri: arn:aws:apigateway:sa-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:sa-east-1:724772056724:function:gtw-teste/invocations
+      passthroughBehavior: when_no_match
+      type: aws_proxy
+      httpMethod: POST

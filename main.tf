@@ -16,7 +16,7 @@ resource "aws_apigatewayv2_api" "my_api" {
   name          = "SampleAPI"
   protocol_type = "HTTP"
 
-  body = file("${path.module}/api-spec.yaml")
+  body = file("${path.module}/api-specification.yaml")
 }
 
 resource "aws_api_gateway_stage" "dev_stage" {

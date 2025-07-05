@@ -1,32 +1,27 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-  required_version = ">= 1.3.0"
-}
-
 provider "aws" {
-  region = var.aws_region
+  region = "sa-east-1"
 }
 
-resource "aws_apigatewayv2_api" "my_api" {
-  name          = "SampleAPI"
-  protocol_type = "HTTP"
-
-  body = file("${path.module}/api-spec.yaml")
+# Read your OpenAPI spec file
+data "local_file" "openapi_spec" {
+  filename = "${path.module}/api_specification.yaml"
 }
 
-resource "aws_api_gateway_stage" "dev_stage" {
-  api_id      = aws_apigatewayv2_api.my_api.id
-  name        = "dev"
-  auto_deploy = true
+resource "aws_api_gateway_rest_api" "my_api" {
+  name = "terraformado-api"
+
+  # Import the openapi spec body as a string
+  body = data.local_file.openapi_spec.content
 }
 
+resource "aws_api_gateway_deployment" "deployment" {
+  depends_on = [aws_api_gateway_rest_api.my_api]
+  rest_api_id = aws_api_gateway_rest_api.my_api.id
+  stage_name  = "prod"
+}
 
-output "api_endpoint" {
-  description = "Invoke URL of the API Gateway"
-  value       = aws_apigatewayv2_api.my_api.api_endpoint
+resource "aws_api_gateway_stage" "prod_stage" {
+  stage_name    = "prod"
+  rest_api_id   = aws_api_gateway_rest_api.my_api.id
+  deployment_id = aws_api_gateway_deployment.deployment.id
 }

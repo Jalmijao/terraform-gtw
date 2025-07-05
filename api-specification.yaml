@@ -1,0 +1,22 @@
+openapi: 3.0.1
+info:
+  title: Terraformado 1.0
+  version: 1.0.0
+paths:
+  /hello:
+    get:
+      summary: Returns a greeting
+      responses:
+        '200':
+          description: A successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      x-amazon-apigateway-integration:
+        uri: arn:aws:lambda:sa-east-1:724772056724:function:gtw-teste
+        passthroughBehavior: when_no_match
+        type: aws_proxy

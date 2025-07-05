@@ -12,14 +12,14 @@ provider "aws" {
   region = var.aws_region
 }
 
-resource "aws_api_gatewayv2_api" "my_api" {
+resource "aws_apigatewayv2_api" "my_api" {
   name          = "SampleAPI"
   protocol_type = "HTTP"
 
   body = file("${path.module}/api-spec.yaml")
 }
 
-resource "aws_api_gatewayv2_stage" "dev_stage" {
+resource "aws_api_gateway_stage" "dev_stage" {
   api_id      = aws_api_gatewayv2_api.my_api.id
   name        = "dev"
   auto_deploy = true
